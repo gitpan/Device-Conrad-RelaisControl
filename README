@@ -1,4 +1,4 @@
-Device/Conrad/RelaisControl version 0.01
+Device/Conrad/RelaisControl 
 ========================================
 
 This module supports access to a Conrad RelaisCard. Conrad

@@ -94,7 +94,7 @@ my($packet) = shift;
 
   my ($cmd, $addr, $data, $crc);
   ($cmd, $addr, $data, $crc) = unpack('CCCC', $packet);
-  my $frame = new Frame($cmd,$addr,$data);
+  my $frame = new Device::Conrad::Frame($cmd,$addr,$data);
 
   if($crc != $frame->crc())
   {
