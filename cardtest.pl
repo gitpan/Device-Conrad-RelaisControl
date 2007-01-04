@@ -8,10 +8,15 @@
 use Test;
 BEGIN { plan tests => 2 };
 use Device::Conrad::RelaisControl;
-use Device::Conrad::RelaisCard;
-use Device::Conrad::Frame;
 ok(1); # If we made it this far, we're ok.
 
+#change port settings according to your needs
+print "open serial port\n";
+$c = new Device::Conrad::RelaisControl("/dev/ttyS0");
+ok(2);
+print "initialize card\n";
+$c->init;
+ok(3) if $c->getNumCards() > 0;
 
 #########################
 

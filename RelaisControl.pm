@@ -31,7 +31,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(
 	
 );
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 
 # Preloaded methods go here.
@@ -195,7 +195,7 @@ my($self) = shift;
     return new Device::Conrad::Frame(0,0,0);
   }
 
-  my $frameIn = Frame::createFromPacket($packetIn);
+  my $frameIn = Device::Conrad::Frame::createFromPacket($packetIn);
 
   return $frameIn;
 }

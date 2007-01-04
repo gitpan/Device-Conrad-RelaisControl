@@ -7,7 +7,7 @@
 package Device::Conrad::RelaisCard;
 
 use Device::SerialPort qw(:PARAM :STAT 0.07);
-use Frame;
+use Device::Conrad::Frame;
 use strict;
 use Carp;
 
@@ -43,7 +43,7 @@ sub init
 {
 my($self) = shift;
 
-  my $getOptFrame = new Frame(CMD_GET_OPT, $self->address(), 0);
+  my $getOptFrame = new Device::Conrad::Frame(CMD_GET_OPT, $self->address(), 0);
   my $optFrame = $self->{'_ctrl'}->sendFrame($getOptFrame);
   unless($optFrame)
   {
@@ -62,7 +62,7 @@ my($self) = shift;
     print "controller ".$self->address()." is set up to block broadcasts\n" if $VERBOSE;
   }
 
-  my $getPortFrame = new Frame(CMD_GET_PORT, $self->address(), 0);
+  my $getPortFrame = new Device::Conrad::Frame(CMD_GET_PORT, $self->address(), 0);
   my $portFrame = $self->{'_ctrl'}->sendFrame($getPortFrame);
   $self->{'_ports'} = $portFrame->data();
 
@@ -82,7 +82,7 @@ my($self) = shift;
     my $ports = shift;
     if($self->{'_ports'} != $ports)
     {
-      my $setPortFrame = new Frame(CMD_SET_PORT, $self->address(), $ports);
+      my $setPortFrame = new Device::Conrad::Frame(CMD_SET_PORT, $self->address(), $ports);
       my $portFrame = $self->{'_ctrl'}->sendFrame($setPortFrame);
       $self->{'_ports'} = $ports;
       $self->showPortInfo() if $VERBOSE;
@@ -150,7 +150,7 @@ sub test()
 {
 my($self) = shift;
 
-  my $testFrame = new Frame(CMD_NOP, $self->address(), 0);
+  my $testFrame = new Device::Conrad::Frame(CMD_NOP, $self->address(), 0);
   my $crcFrame = $testFrame->createCRCFrame(); 
   my $testResp = $self->{'_ctrl'}->sendFrame($testFrame);
   if($testResp->equals($crcFrame))
